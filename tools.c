@@ -24,7 +24,7 @@ size_t  ft_strlenAP(char *str, size_t *ap){
     return i;
 }
 
-size_t  ft_strlenBPAP(char *nb1, int *ap, int *bp){
+size_t  ft_strlenBPAP(char *str, size_t *ap, size_t *bp){
     size_t  i = 0;
     while (str[i] != '\0' && str[i] != '.'){
         *bp = *bp + 1;
@@ -159,20 +159,47 @@ void *  ft_free(void *elem){
     return elem;
 }
 
+int ft_strncmp(const char *s1, const char *s2, size_t n){
+    size_t  i = 0;
+
+    while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i] && n > i)
+        i++;
+    return (s1[i] - s2[i]);
+}
+
+int ft_strcmp(const char *s1, const char *s2){
+    size_t i = 0;
+
+    while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+        i++;
+    return (s1[i] - s2[i]);
+}
+
 int bigestNumber(char *num1, char *num2){
-    size_t  lenNb1 = 0;
-    size_t  lenNb2 = 0;
     size_t  ap1 = 0;
     size_t  ap2 = 0;
     size_t  bp1 = 0;
     size_t  bp2 = 0;
+    int     res = 0;
     
-    lenNb1 = ft_strlenBPAP(nb1, &ap1, &bp1);
-    lenNb2 = ft_strlenBPAP(nb2, &ap2, &bp2);
+    
+    ft_strlenBPAP(num1, &ap1, &bp1);
+    ft_strlenBPAP(num2, &ap2, &bp2);
     if (bp1 > bp2)
         return 1;
     else if(bp2 > bp1)
         return 2;
-    if (bp1 == bp2 && ())
-    return 1;
+    else if (bp1 == bp2 && ap1 > 0 && ap2 == 0)
+        return 1;
+    else if (bp1 == bp2 && ap2 > 0 && ap1 == 0)
+        return 2;
+    res = ft_strncmp(num1, num2, ap1);
+    if (res > 0)
+        return 1;
+    else if (res < 0)
+        return 2;
+    res = ft_strcmp(num1 + ap1, num2 + ap2);
+    if (res >= 0)
+        return 1;
+    return 2;
 }

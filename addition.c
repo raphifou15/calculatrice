@@ -17,6 +17,7 @@ char *  addClean(char *nb1, char *nb2){
 
     lenNb1 = ft_strlenAP(nb1, &ap1);
     lenNb2 = ft_strlenAP(nb2, &ap2);
+    
     while (ap1 > 0 || ap2 > 0){
         if (ap1 > ap2){
             c = (nb1[lenNb1 - 1]);
@@ -64,8 +65,8 @@ char *  addClean(char *nb1, char *nb2){
             val = c / 10;
             c = (c % 10) + 48;
         }
-        lenNb1--;
-        lenNb2--;
+        (lenNb1 > 0) ? lenNb1-- : 0;
+        (lenNb2 > 0) ? lenNb2-- : 0;
         str = num;
         num = ft_joinCharBefore(str, c);
         if (str != NULL){
@@ -101,6 +102,7 @@ char *  addition(char *num1, char *num2){
         nb1clean = NULL;
         return NULL;
     }
+    
     numberAdd = addClean(nb1clean, nb2clean);
     if (numberAdd == NULL)
         return NULL;
